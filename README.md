@@ -14,7 +14,8 @@ or
 For providing your own Simple Event Correlator rules you should add a volume mapping to map the external rules folder to /app/rules/ with the .sec suffix, by adding `-v rules:/app/rules` to your docker run command. Docker will create volume for the rules. Put rules to directory  `/var/lib/docker/rules/_data/`.
 
 **SEC logfile**
-Write actions are written to container standard output. SEC logs are written to `/app/logs/sec.log`. To manage SEC logs then mount directory to host system `-v logs:/app/logs`. Log are in the host machine directory `/var/lib/docker/logs/_data/`
+
+Write actions are logged to container standard output. SEC logs are written to `/app/logs/sec.log`. To manage SEC logs then mount directory to host system `-v logs:/app/logs`. Log are in the host machine directory `/var/lib/docker/logs/_data/`
 
 **Send test log to SEC**
 
