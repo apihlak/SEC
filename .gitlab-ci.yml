@@ -1,0 +1,40 @@
+stages:
+  - schedule
+  - build_image
+
+running-on-schedule:
+  stage: schedule
+  tags:
+    - default
+  only:
+    - schedules
+  script:
+    - test -e /usr/bin/ssh-agent || apk add --no-cache openssh-client
+    - test -e /usr/bin/git || apk add --no-cache git
+    - eval $(ssh-agent -s)
+    - echo -e "$RUNNER_CUSTOM_SSH_KEY" | grep -v "^$" | tr -d '\r' | ssh-add - > /dev/null
+    - git remote remove github || echo "Nothing to remove"
+    - git remote add github ${GIT_REMOTE}
+    - git remote set-url origin ssh://git@${CI_SERVER_ORIGIN}
+    - git config user.email "runner-custom@${CI_SERVER_HOST}"
+    - mkdir ~/.ssh && ssh-keyscan -p 10022  ${CI_SERVER_HOST} > ~/.ssh/known_hosts
+    - git config user.name "runner-custom"
+    - git pull github ${BRANCH:-master} --no-edit --allow-unrelated-histories || echo "Issues found"
+    - git add . && git commit -m "merge" || echo "ok"
+    - git push origin HEAD:${BRANCH:-master}
+
+build_image:
+  stage: build_image
+  tags:
+    - priv
+  except:
+    - schedules
+  image: docker:19.03.1
+  services:
+    - docker:19.03.1-dind
+  before_script:
+    - echo -n $DOCKER_PASS | docker login -u $DOCKER_USER --password-stdin registry.hub.docker.com
+  script:
+    - docker pull registry.hub.docker.com/simpleevcorr/sec:latest || true
+    - docker build --cache-from registry.hub.docker.com/simpleevcorr/sec:latest --tag registry.hub.docker.com/simpleevcorr/sec:latest .
+    - docker push registry.hub.docker.com/simpleevcorr/sec:latest

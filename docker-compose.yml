@@ -1,0 +1,11 @@
+version: "3.2"
+
+services:
+  simple-evcorr:
+    image: simpleevcorr/sec:latest
+    ports:
+      - "514:514/tcp"
+      - "514:514/udp"
+#    Custom rules
+#    volumes:
+#      - ./rules:/app/rules
