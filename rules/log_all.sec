@@ -2,4 +2,4 @@ type=Single
 ptype=RegExp
 pattern=\s+(\S+)
 desc=$0
-action=logonly
+action=write - $0
