@@ -1,7 +1,7 @@
 # SEC
 Simple Event Correlator Docker
 
-**Running Simple event correlator**
+**Running Simple Event Correlator**
 
 `docker-compose up`
 
@@ -21,5 +21,7 @@ For providing your own Simple Event Correlator rules you should add a volume map
 
 * Send test log
 
-```echo "Test log message" | nc -4t -w1 127.0.0.1 514
-echo '{@cee: {"test":"abc","test2":"blah"}' | nc -4t -w1 127.0.0.1 514```
+```
+echo "Test log message" | nc -4t -w1 127.0.0.1 514
+echo '{@cee: {"test":"abc","test2":"blah"}' | nc -4t -w1 127.0.0.1 514
+```
