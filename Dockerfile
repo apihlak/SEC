@@ -21,4 +21,3 @@ ADD ./config/rsyslog.conf /etc/rsyslog.conf
 EXPOSE 514/tcp 514/udp
 
 ENTRYPOINT ["rsyslogd", "-n", "-f", "/etc/rsyslog.conf"]
-

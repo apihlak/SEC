@@ -17,6 +17,31 @@ There are test rules included but for providing your own Simple Event Correlator
 
 Write actions are logged to container standard output. SEC logs are written to `/app/logs/sec.log`. To manage SEC logs then mount directory to host system `-v logs:/app/logs`. Log are in the host machine directory `/var/lib/docker/logs/_data/`
 
+**Send signals to SEC**
+
+First message will start SEC process. After than can send signals to process.
+`echo "Initial message" | nc -4t -w1 localhost 514`
+
+* Terminate gracefully
+
+`docker exec simple-evcorr 'sh' '-c' 'kill -TERM $(pgrep -f sec)'`
+
+* Full restart
+
+`docker exec simple-evcorr 'sh' '-c' 'kill -HUP $(pgrep -f sec)'`
+
+* Soft restart
+
+`docker exec simple-evcorr 'sh' '-c' 'kill -USR1 $(pgrep -f sec)'`
+
+* Reopen log file in `/app/logs/sec.log`. Useful for log file rotation
+
+`docker exec simple-evcorr 'sh' '-c' 'kill -USR2 $(pgrep -f sec)'`
+
+* Increase its logging level by one
+
+`docker exec simple-evcorr 'sh' '-c' 'kill -INT $(pgrep -f sec)'`
+
 **Send test log to SEC**
 
 * View log files
