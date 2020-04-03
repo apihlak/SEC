@@ -1,5 +1,8 @@
 # SEC
-Simple Event Correlator Docker
+
+Easy to run Simple Event Correlator Docker
+
+Latest version: sec-2.8.2.tar.gz (June 2 2019)
 
 **Running Simple Event Correlator**
 
@@ -19,7 +22,7 @@ Write actions are logged to container standard output. SEC logs are written to `
 
 **Send signals to SEC**
 
-First message will start SEC process. After than can send signals to process.
+First message will start SEC process. After that can send signals to process.
 `echo "Initial message" | nc -4t -w1 localhost 514`
 
 * Terminate gracefully
