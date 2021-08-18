@@ -2,7 +2,7 @@
 
 Easy to run Simple Event Correlator Docker
 
-Latest version: sec-2.8.3.tar.gz (May 2 2020)
+Latest version: sec-2.9.0.tar.gz (May 12 2021)
 
 **Running Simple Event Correlator**
 
